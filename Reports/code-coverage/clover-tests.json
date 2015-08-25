@@ -1,0 +1,28 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 2,
+    "passes": 0,
+    "pending": 0,
+    "failures": 2,
+    "start": "2015-08-25T03:14:47.817Z",
+    "end": "2015-08-25T03:14:47.823Z",
+    "duration": 6
+  },
+  "failures": [
+    {
+      "title": "Coverage: mssql.js",
+      "fullTitle": "Coverage: C:\\Atlassian\\NPM\\cellarise-connector-mssql\\lib\\mssql.js",
+      "duration": 0,
+      "error": "Insufficient statement coverage: actual=2% required=50% (statements covered = 11 total statements = 602)\nInsufficient branch coverage: actual=0% required=50% (branches covered = 0 total branches = 357)\nInsufficient function coverage: actual=0% required=50% (functions covered = 0 total functions = 86)"
+    },
+    {
+      "title": "Coverage: params.js",
+      "fullTitle": "Coverage: C:\\Atlassian\\NPM\\cellarise-connector-mssql\\lib\\params.js",
+      "duration": 0,
+      "error": "Insufficient statement coverage: actual=28.999999999999996% required=50% (statements covered = 4 total statements = 14)\nInsufficient branch coverage: actual=0% required=50% (branches covered = 0 total branches = 8)\nInsufficient function coverage: actual=0% required=50% (functions covered = 0 total functions = 3)"
+    }
+  ],
+  "passes": [],
+  "skipped": []
+}

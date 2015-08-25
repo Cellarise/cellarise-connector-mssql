@@ -1,0 +1,3307 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib\mssql.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../prettify.css">
+
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Helvetica Neue, Helvetica,Arial;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 10em;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Consolas, Menlo, Monaco, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 14px;
+            font-size: 14px;
+            -moz-tab-size: 2;
+            -o-tab-size:  2;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { text-decoration: none; color: #000; }
+        div.coverage-summary a:visited { text-decoration: none; color: #333; }
+        div.coverage-summary a:hover { text-decoration: underline; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: url("https://yui-s.yahooapis.com/3.6.0/build/datatable-sort/assets/skins/sam/sort-arrow-sprite.png") no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">lib\mssql.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">1.83% <small>(11 / 602)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 357)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 86)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">1.9% <small>(11 / 579)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib\</a> &#187; mssql.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* Module dependencies */
+var mssql = require("mssql");
+<span class="cstat-no" title="statement not covered" >var jdb = require("jugglingdb");</span>
+<span class="cstat-no" title="statement not covered" >var util = require("util");</span>
+<span class="cstat-no" title="statement not covered" >var Parameters = require("./params");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var name = "mssql";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >exports.name = name;</span>
+<span class="cstat-no" title="statement not covered" >exports.initialize = <span class="fstat-no" title="function not covered" >function initializeSchema(schema, callback) {</span></span>
+  //need msnodesql installed, and a host server and a database
+<span class="cstat-no" title="statement not covered" >  if (!mssql || !schema.settings.host || !schema.settings.database){ <span class="cstat-no" title="statement not covered" >return; </span>}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var config = {</span>
+    server: schema.settings.host,
+    database: schema.settings.database,
+    port: schema.settings.port,
+    driver: schema.settings.driver
+  };
+&nbsp;
+  //if we have a username and password then we use a credential connection string
+<span class="cstat-no" title="statement not covered" >  if (schema.settings.username &amp;&amp; schema.settings.password) {</span>
+<span class="cstat-no" title="statement not covered" >    config.user = schema.settings.username;</span>
+<span class="cstat-no" title="statement not covered" >    config.password = schema.settings.password;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (!config.driver || config.driver &amp;&amp; config.driver === "tedious") {</span>
+<span class="cstat-no" title="statement not covered" >    config.options = schema.settings.options;</span>
+<span class="cstat-no" title="statement not covered" >    config.pool = schema.settings.pool;</span>
+  }
+  else <span class="cstat-no" title="statement not covered" >if (config.driver === "msnodesql") {</span>
+<span class="cstat-no" title="statement not covered" >    config.connectionString = schema.settings.connectionString;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var connection = new mssql.Connection(config, <span class="fstat-no" title="function not covered" >function(err){</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (err) {</span>
+<span class="cstat-no" title="statement not covered" >        throw err;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    schema.connected = true;</span>
+<span class="cstat-no" title="statement not covered" >    process.nextTick(callback);</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  schema.client = connection;</span>
+<span class="cstat-no" title="statement not covered" >  schema.adapter = new MsSQL(schema.client);</span>
+<span class="cstat-no" title="statement not covered" >  schema.adapter.schema = schema;</span>
+<span class="cstat-no" title="statement not covered" >  schema.adapter.tableNameID = schema.settings.tableNameID;</span>
+<span class="cstat-no" title="statement not covered" >  if (schema.settings.azure) <span class="cstat-no" title="statement not covered" >schema.adapter.azure = true;</span></span>
+};
+&nbsp;
+<span class="fstat-no" title="function not covered" >function MsSQL(client) {</span>
+<span class="cstat-no" title="statement not covered" >  this.name = name;</span>
+<span class="cstat-no" title="statement not covered" >  this._models = {};</span>
+<span class="cstat-no" title="statement not covered" >  this._pkids = {};</span>
+<span class="cstat-no" title="statement not covered" >  this._idxNames = {};</span>
+<span class="cstat-no" title="statement not covered" >  this.client = client;</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >util.inherits(MsSQL, jdb.BaseSQL);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.newline = "\r\n";</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >function wrapColumn(col) {</span>
+<span class="cstat-no" title="statement not covered" >    var colRegex = /(\w*)\s*(DESC|ASC){0,1}/</span>
+<span class="cstat-no" title="statement not covered" >    return col.replace(colRegex, "[$1] $2").trim();</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.query = <span class="fstat-no" title="function not covered" >function (sql, optionsOrCallback, Callback) {</span></span>
+  //debugger;
+<span class="cstat-no" title="statement not covered" >  var hasOptions = true;</span>
+<span class="cstat-no" title="statement not covered" >  var options = null;</span>
+<span class="cstat-no" title="statement not covered" >  var cb = null;</span>
+<span class="cstat-no" title="statement not covered" >  if (typeof optionsOrCallback === "function") {</span>
+<span class="cstat-no" title="statement not covered" >    hasOptions = false;</span>
+<span class="cstat-no" title="statement not covered" >    cb = optionsOrCallback;</span>
+    // console.log(sql);
+  } else {
+<span class="cstat-no" title="statement not covered" >    options = optionsOrCallback;</span>
+<span class="cstat-no" title="statement not covered" >    cb = Callback;</span>
+    // console.log(options);
+    // console.log(sql);
+  }
+<span class="cstat-no" title="statement not covered" >  if (!this.schema.connected) {</span>
+<span class="cstat-no" title="statement not covered" >    return this.schema.on('connected', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      var request = this.schema.client.request();</span>
+<span class="cstat-no" title="statement not covered" >      if (hasOptions) {</span>
+<span class="cstat-no" title="statement not covered" >        if (options instanceof Parameters) {</span>
+<span class="cstat-no" title="statement not covered" >          for (var i = 0; i &lt; options.params.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >            request.input(options.params[i].name, options.params[i].value);</span>
+          }
+        }
+        else {
+<span class="cstat-no" title="statement not covered" >          throw new Error(name + " invalid options passed to query");</span>
+        }
+      }
+<span class="cstat-no" title="statement not covered" >      request.query(sql, cb);</span>
+    }.bind(this));
+  }
+<span class="cstat-no" title="statement not covered" >  var client = this.client;</span>
+<span class="cstat-no" title="statement not covered" >  var time = Date.now();</span>
+<span class="cstat-no" title="statement not covered" >  var log = this.log;</span>
+<span class="cstat-no" title="statement not covered" >  if (typeof cb !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error('callback should be a function');</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var innerCB = <span class="fstat-no" title="function not covered" >function (err, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (log) <span class="cstat-no" title="statement not covered" >log(sql, time);</span></span>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >        process.nextTick(cb.bind(null, err, data));</span>
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >        console.log(e.stack);</span>
+    }
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var request = client.request();</span>
+<span class="cstat-no" title="statement not covered" >  if (hasOptions) {</span>
+<span class="cstat-no" title="statement not covered" >    if (options instanceof Parameters) {</span>
+<span class="cstat-no" title="statement not covered" >      for (var i = 0; i &lt; options.params.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        request.input(options.params[i].name, options.params[i].value);</span>
+      }
+    }
+    else {
+<span class="cstat-no" title="statement not covered" >      throw new Error(name + " invalid options passed to query");</span>
+    }
+  }
+<span class="cstat-no" title="statement not covered" >  request.query(sql, innerCB);</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.disconnect = <span class="fstat-no" title="function not covered" >function disconnect() {</span></span>
+<span class="cstat-no" title="statement not covered" >  this.client.close();</span>
+};
+&nbsp;
+// MsSQL.prototype.command = function (sql, callback) {
+//     return this.query(sql, callback);
+// };
+&nbsp;
+//params
+// descr = {
+//   model: ...
+//   properties: ...
+//   settings: ...
+// }
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.define = <span class="fstat-no" title="function not covered" >function (descr) {</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!descr.settings) <span class="cstat-no" title="statement not covered" >descr.settings = {};</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this._models[descr.model.modelName] = descr;</span>
+&nbsp;
+  //default pkid is "id"
+<span class="cstat-no" title="statement not covered" >  var id = "id";</span>
+  //override the default with another convention, 'TableName'ID, if defined in the adapter settings
+<span class="cstat-no" title="statement not covered" >  if (this.tableNameID) {</span>
+<span class="cstat-no" title="statement not covered" >    id = descr.model.modelName + "ID";</span>
+  }
+  //override both defaults if a primaryKey is specified in a property
+<span class="cstat-no" title="statement not covered" >  Object.keys(descr.properties).forEach(<span class="fstat-no" title="function not covered" >function(propName) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var propVal = descr.properties[propName];</span>
+<span class="cstat-no" title="statement not covered" >    if (typeof propVal === "object" &amp;&amp; propVal.primaryKey) {</span>
+<span class="cstat-no" title="statement not covered" >      return id = propVal.name || propName;</span>
+    }
+  });
+<span class="cstat-no" title="statement not covered" >  this._pkids[descr.model.modelName] = id;</span>
+&nbsp;
+  //track database index names for this model
+<span class="cstat-no" title="statement not covered" >  this._idxNames[descr.model.modelName] = [];</span>
+};
+&nbsp;
+// MsSQL.prototype.defineProperty = function (model, prop, params) {
+//   this._models[model].properties[prop] = params;
+// };
+&nbsp;
+/**
+ * Must invoke callback(err, id)
+ */
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.create = <span class="fstat-no" title="function not covered" >function (model, data, callback) {</span></span>
+  //debugger;
+<span class="cstat-no" title="statement not covered" >  var fieldsAndData = this.buildInsert(model, data);</span>
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var sql = "INSERT INTO [dbo].[" + tblName + "] (" + fieldsAndData.fields + ")" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >      sql += "VALUES (" + fieldsAndData.paramPlaceholders + ");" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >      sql += "SELECT IDENT_CURRENT('" + tblName + "') AS insertId;";</span>
+&nbsp;
+  // console.log(sql);
+  // console.log(fieldsAndData.params);
+<span class="cstat-no" title="statement not covered" >  this.query(sql, fieldsAndData.params, <span class="fstat-no" title="function not covered" >function (err, results) {</span></span>
+    //console.log(err);
+<span class="cstat-no" title="statement not covered" >    if (err) { <span class="cstat-no" title="statement not covered" >return callback(err); </span>}</span>
+    //console.log(results);
+    //msnodesql will execute the callback for each statement that get's executed, we're only interested in the one that returns with the insertId
+<span class="cstat-no" title="statement not covered" >    if (results.length &gt; 0 &amp;&amp; results[0].insertId) {</span>
+      //console.log('new id: ' + results[0].insertId);
+<span class="cstat-no" title="statement not covered" >      callback(null, results[0].insertId);</span>
+    }
+  });
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.updateOrCreate = <span class="fstat-no" title="function not covered" >function (model, data, callback) {</span></span>
+  //debugger;
+  //console.log('updateOrCreate');
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var props = this._models[model].properties;</span>
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var modelPKID = this._pkids[model];</span>
+  //get the correct id of the item using the pkid that they specified
+<span class="cstat-no" title="statement not covered" >  var id = data[modelPKID];</span>
+<span class="cstat-no" title="statement not covered" >  var fieldNames = [];</span>
+<span class="cstat-no" title="statement not covered" >  var fieldValuesPlaceholders = [];</span>
+<span class="cstat-no" title="statement not covered" >  var combined = [];</span>
+<span class="cstat-no" title="statement not covered" >  var params = new Parameters();</span>
+<span class="cstat-no" title="statement not covered" >  Object.keys(data).forEach(<span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (props[key]) {</span>
+      //check for the "id" key also, for backwards compatibility with the jugglingdb hardcoded id system
+<span class="cstat-no" title="statement not covered" >      if (key !== "id" &amp;&amp; key !== modelPKID) {</span>
+<span class="cstat-no" title="statement not covered" >        var paramName = self.toDatabase(props[key], data[key], params);</span>
+<span class="cstat-no" title="statement not covered" >        fieldNames.push("[" + key + "]");</span>
+<span class="cstat-no" title="statement not covered" >        fieldValuesPlaceholders.push("(" + paramName + ")");</span>
+<span class="cstat-no" title="statement not covered" >        combined.push(key + "=(" + paramName + ")");</span>
+      }
+    }
+  });
+<span class="cstat-no" title="statement not covered" >  var sql = "";</span>
+<span class="cstat-no" title="statement not covered" >  if (id &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >    self.exists(model, id, <span class="fstat-no" title="function not covered" >function(err, yn) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (err) { <span class="cstat-no" title="statement not covered" >return callback(err); </span>}</span>
+<span class="cstat-no" title="statement not covered" >      if (yn) {</span>
+        //update
+<span class="cstat-no" title="statement not covered" >        sql = "UPDATE [dbo].[" + tblName + "]" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >        sql += "SET " + combined.join() + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >        sql += "WHERE [" + modelPKID + "] = (@id);" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >        sql += "SELECT " + id + " AS pkid;";</span>
+<span class="cstat-no" title="statement not covered" >        params.add("id", id);</span>
+      } else {
+        //insert with identity_insert
+<span class="cstat-no" title="statement not covered" >        sql = "SET IDENTITY_INSERT [dbo].[" + tblName + "] ON;" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >        sql += "INSERT INTO [dbo].[" + tblName + "] ([" + modelPKID + "]," + fieldNames.join() + ")" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >        sql += "VALUES (" + id + "," + fieldValuesPlaceholders.join() + ");" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >        sql += "SET IDENTITY_INSERT [dbo].[" + tblName + "] OFF;" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >        sql += "SELECT " + id + " AS pkid;";</span>
+      }
+<span class="cstat-no" title="statement not covered" >      doQuery(sql, params);</span>
+    });
+  } else {
+    //insert
+<span class="cstat-no" title="statement not covered" >    sql = "INSERT INTO [dbo].[" + tblName + "] (" + fieldNames.join() + ")" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >    sql += "VALUES (" + fieldValuesPlaceholders.join() + ");" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >    sql += "SELECT IDENT_CURRENT('" + tblName + "') AS pkid;";</span>
+<span class="cstat-no" title="statement not covered" >    doQuery(sql, params);</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var doQuery = <span class="fstat-no" title="function not covered" >function(sql, params) {</span></span>
+<span class="cstat-no" title="statement not covered" >    self.query(sql, params, <span class="fstat-no" title="function not covered" >function (err, results) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (err) { <span class="cstat-no" title="statement not covered" >return callback(err); </span>}</span>
+      //msnodesql will execute the callback for each statement that get's executed, we're only interested in the one that returns with the pkid
+<span class="cstat-no" title="statement not covered" >      if (results.length &gt; 0 &amp;&amp; results[0].pkid) {</span>
+<span class="cstat-no" title="statement not covered" >        data[modelPKID] = results[0].pkid;</span>
+        //#jdb id compatibility#
+<span class="cstat-no" title="statement not covered" >        data.id = results[0].pkid; </span>//set the id property also, to play nice with the jugglingdb abstract class implementation.
+<span class="cstat-no" title="statement not covered" >        callback(err, data);</span>
+      }
+    });
+  }
+};
+&nbsp;
+//redundant, same functionality as "updateOrCreate" right now.  Maybe in the future some validation will happen here.
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.save = <span class="fstat-no" title="function not covered" >function (model, data, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >  this.updateOrCreate(model, data, callback);</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.updateAttributes = <span class="fstat-no" title="function not covered" >function (model, id, data, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var modelPKID = this._pkids[model];</span>
+  //jugglingdb abstract class may have sent up a null value for this id if we aren't using the standard "id" name for the pkid.
+  //  if that is the case then set the id to the correct value from the data using the actual pkid name.
+<span class="cstat-no" title="statement not covered" >  if (id === null) {</span>
+<span class="cstat-no" title="statement not covered" >    id = data[modelPKID];</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    data[modelPKID] = id;</span>
+  }
+  //console.log(id);
+<span class="cstat-no" title="statement not covered" >  this.exists(model, id, <span class="fstat-no" title="function not covered" >function(err, yn) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (err) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log(err);</span>
+<span class="cstat-no" title="statement not covered" >      return cb("An error occurred when checking for the existance of this record");</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (yn) {</span>
+      //only call this after verifying that the record exists, we don't want to create it if it doesn't.
+<span class="cstat-no" title="statement not covered" >      return self.updateOrCreate(model, data, cb);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return cb("A " + tblName + " doesn't exist with a " + modelPKID + " of " + id , id);</span>
+  });
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.exists = <span class="fstat-no" title="function not covered" >function (model, id, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var modelPKID = this._pkids[model];</span>
+<span class="cstat-no" title="statement not covered" >  var sql = "SELECT COUNT(*) cnt FROM [dbo].[" + tblName + "] WHERE [" + modelPKID + "] = (@id)"</span>
+  //console.log(sql);
+<span class="cstat-no" title="statement not covered" >  this.query(sql, new Parameters([{ name: "id", value: id }]), <span class="fstat-no" title="function not covered" >function (err, results) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >      callback(null, results[0].cnt &gt;= 1);</span>
+  });
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.count = <span class="fstat-no" title="function not covered" >function (model, cb, where) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var sql = "SELECT COUNT(*) cnt FROM [dbo].[" + this.tableEscaped(model) + "]" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  var props = this._models[model].properties;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var params = new Parameters();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (where) {</span>
+<span class="cstat-no" title="statement not covered" >    sql += this.buildWhere(where, props, params) + MsSQL.newline;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.query(sql, params, <span class="fstat-no" title="function not covered" >function (err, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (err) { <span class="cstat-no" title="statement not covered" >return cb(err); </span>}</span>
+<span class="cstat-no" title="statement not covered" >    cb(null, data[0].cnt);</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return sql;</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.destroyAll = <span class="fstat-no" title="function not covered" >function(model, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var sql = "DELETE FROM [dbo].[" + this.tableEscaped(model) + "]";</span>
+<span class="cstat-no" title="statement not covered" >  this.query(sql, <span class="fstat-no" title="function not covered" >function(err, data) {</span></span>
+    //don't bother returning data, it's a delete statement
+<span class="cstat-no" title="statement not covered" >    if (err) { <span class="cstat-no" title="statement not covered" >return cb(err); </span>}</span>
+<span class="cstat-no" title="statement not covered" >    cb(null);</span>
+  });
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.destroy = <span class="fstat-no" title="function not covered" >function(model, id, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var sql = "DELETE FROM [dbo].[" + this.tableEscaped(model) + "]" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  sql += "WHERE [" + this._pkids[model] + "] = (@id)";</span>
+<span class="cstat-no" title="statement not covered" >  this.query(sql, new Parameters([{ name: "id", value: id }]), <span class="fstat-no" title="function not covered" >function(err, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (err) { <span class="cstat-no" title="statement not covered" >return cb(err); </span>}</span>
+<span class="cstat-no" title="statement not covered" >    cb(null);</span>
+  });
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.find = <span class="fstat-no" title="function not covered" >function (model, id, callback) {</span></span>
+  //debugger;
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var modelPKID = this._pkids[model];</span>
+<span class="cstat-no" title="statement not covered" >  var sql = "SELECT * FROM [dbo].[" + tblName + "] WHERE [" + modelPKID + "] = (@id)";</span>
+  //console.log(sql);
+<span class="cstat-no" title="statement not covered" >  this.query(sql, new Parameters([{ name: "id", value: id }]), <span class="fstat-no" title="function not covered" >function (err, results) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+<span class="cstat-no" title="statement not covered" >    callback(null, this.fromDatabase(model, results[0]));</span>
+  }.bind(this));
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.buildInsert = <span class="fstat-no" title="function not covered" >function (model, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var insertIntoFields = [];</span>
+<span class="cstat-no" title="statement not covered" >  var paramPlaceholders = [];</span>
+<span class="cstat-no" title="statement not covered" >  var params = new Parameters();</span>
+<span class="cstat-no" title="statement not covered" >  var props = this._models[model].properties;</span>
+<span class="cstat-no" title="statement not covered" >  var modelPKID = this._pkids[model];</span>
+  //remove the pkid column if it's in the data, since we're going to insert a new record, not update an existing one.
+<span class="cstat-no" title="statement not covered" >  delete data[modelPKID];</span>
+  //delete the hardcoded id property that jugglindb automatically creates
+<span class="cstat-no" title="statement not covered" >  delete data.id</span>
+<span class="cstat-no" title="statement not covered" >  Object.keys(data).forEach(<span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (props[key]) {</span>
+<span class="cstat-no" title="statement not covered" >      var paramName = this.toDatabase(props[key], data[key], params);</span>
+<span class="cstat-no" title="statement not covered" >      insertIntoFields.push("[" + key + "]");</span>
+<span class="cstat-no" title="statement not covered" >      paramPlaceholders.push("(" + paramName + ")");</span>
+    }
+  }.bind(this));
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return { fields:insertIntoFields.join(), paramPlaceholders:paramPlaceholders.join(), params:params };</span>
+}
+&nbsp;
+//unchanged from MySql adapter, credit to dgsan
+<span class="fstat-no" title="function not covered" >function dateToMsSql(val) {</span>
+<span class="cstat-no" title="statement not covered" >  return (val.getUTCMonth() + 1) + '-' +</span>
+    val.getUTCDate() + '-' +
+    val.getUTCFullYear() + ' ' +
+    fillZeros(val.getUTCHours()) + ':' +
+    fillZeros(val.getUTCMinutes()) + ':' +
+    fillZeros(val.getUTCSeconds()) + '.00';
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function fillZeros(v) {</span>
+<span class="cstat-no" title="statement not covered" >    return v &lt; 10 ? '0' + v : v;</span>
+  }
+}
+&nbsp;
+//toDatabase is used for formatting data when inserting/updating records
+// it is also used when building a where clause for filtering selects
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.toDatabase = <span class="fstat-no" title="function not covered" >function (prop, val, params) {</span></span>
+<span class="cstat-no" title="statement not covered" >  if (val === null || typeof val === 'undefined') {</span>
+    // return 'NULL';
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (prop &amp;&amp; prop.type.name === 'JSON') {</span>
+<span class="cstat-no" title="statement not covered" >    return "@" + params.add(JSON.stringify(val));</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (prop &amp;&amp; prop.type instanceof Array) {</span>
+<span class="cstat-no" title="statement not covered" >    return "@" + params.add(JSON.stringify(val));</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (val.constructor &amp;&amp; val.constructor.name === 'Object') {</span>
+<span class="cstat-no" title="statement not covered" >    var operator = Object.keys(val)[0]</span>
+<span class="cstat-no" title="statement not covered" >    val = val[operator];</span>
+<span class="cstat-no" title="statement not covered" >    if (operator === 'between') {</span>
+      //the between operator is never used for insert/updates
+      // therefore always pass the wrap=true parameter when formatting the values
+<span class="cstat-no" title="statement not covered" >      return this.toDatabase(prop, val[0], params) +</span>
+      ' AND ' +
+      this.toDatabase(prop, val[1], true);
+    } else <span class="cstat-no" title="statement not covered" >if (operator == 'inq' || operator == 'nin') {</span>
+      //always wrap inq/nin values in single quotes when they are string types, it's never used for insert/updates
+<span class="cstat-no" title="statement not covered" >      if (!(val.propertyIsEnumerable('length')) &amp;&amp; typeof val === 'object' &amp;&amp; typeof val.length === 'number') { //if value is array</span>
+<span class="cstat-no" title="statement not covered" >        var self = this;</span>
+<span class="cstat-no" title="statement not covered" >        return val.map(<span class="fstat-no" title="function not covered" >function (item) {</span></span>
+<span class="cstat-no" title="statement not covered" >          return self.toDatabase(prop, item, params);</span>
+        }).join(',');
+      } else {
+<span class="cstat-no" title="statement not covered" >        return "@" + params.add(val);</span>
+      }
+    } else <span class="cstat-no" title="statement not covered" >if (operator === "max") {</span>
+<span class="cstat-no" title="statement not covered" >      return val.field;</span>
+    }
+  }
+<span class="cstat-no" title="statement not covered" >  if (prop &amp;&amp; prop.type.name === 'Date') {</span>
+<span class="cstat-no" title="statement not covered" >    if (!val) {</span>
+<span class="cstat-no" title="statement not covered" >      return null;</span>
+      // return 'NULL';
+    }
+<span class="cstat-no" title="statement not covered" >    if (!val.toISOString) {</span>
+<span class="cstat-no" title="statement not covered" >      val = new Date(val);</span>
+    }
+      else {
+<span class="cstat-no" title="statement not covered" >        val = val.toISOString();</span>
+    }
+  }
+<span class="cstat-no" title="statement not covered" >  if (prop &amp;&amp; prop.type.name == "Boolean") {</span>
+<span class="cstat-no" title="statement not covered" >    return val ? 1 : 0;</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return "@" + params.add(val);</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.fromDatabase = <span class="fstat-no" title="function not covered" >function (model, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >  if (!data) {</span>
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+  //create an "id" property in the data for backwards compatibility with juggling-db
+<span class="cstat-no" title="statement not covered" >  data.id = data[this._pkids[model]];</span>
+<span class="cstat-no" title="statement not covered" >  var props = this._models[model].properties;</span>
+<span class="cstat-no" title="statement not covered" >  Object.keys(data).forEach(<span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var val = data[key];</span>
+<span class="cstat-no" title="statement not covered" >    if (props[key]) {</span>
+<span class="cstat-no" title="statement not covered" >      if (props[key].type.name === 'Boolean' &amp;&amp; val !== null) {</span>
+<span class="cstat-no" title="statement not covered" >        val = (true &amp;&amp; val); </span>//convert to a boolean type from number
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    data[key] = val;</span>
+  });
+<span class="cstat-no" title="statement not covered" >  return data;</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.escapeName = <span class="fstat-no" title="function not covered" >function (name) {</span></span>
+<span class="cstat-no" title="statement not covered" >  return name.replace(/\./g, '_');</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.escapeKey = <span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >  return key;</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.all = <span class="fstat-no" title="function not covered" >function (model, params, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var sql = "SELECT * FROM [dbo].[" + this.tableEscaped(model) + "]" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var props = this._models[model].properties;</span>
+<span class="cstat-no" title="statement not covered" >  var parameters = new Parameters();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (params) {</span>
+<span class="cstat-no" title="statement not covered" >    if (params.where) {</span>
+<span class="cstat-no" title="statement not covered" >      sql += this.buildWhere(params.where, props, parameters) + MsSQL.newline;</span>
+      //console.log(sql);
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (params.limit || params.skip) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!params.order) {</span>
+<span class="cstat-no" title="statement not covered" >            params.order = this._pkids[model];</span>
+        }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (params.order) {</span>
+<span class="cstat-no" title="statement not covered" >      sql += this.buildOrderBy(params.order, params.skip, params.limit) + MsSQL.newline;</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  this.query(sql, parameters, <span class="fstat-no" title="function not covered" >function (err, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (err) <span class="cstat-no" title="statement not covered" >return callback(err);</span></span>
+&nbsp;
+    //convert database types to js types
+<span class="cstat-no" title="statement not covered" >    var objs = data.map(<span class="fstat-no" title="function not covered" >function (obj) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return self.fromDatabase(model, obj);</span>
+    });
+&nbsp;
+    //check for eager loading relationships
+<span class="cstat-no" title="statement not covered" >    if (params &amp;&amp; params.include) {</span>
+<span class="cstat-no" title="statement not covered" >        self._models[model].model.include(objs, params.include, callback);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      callback(null, objs);</span>
+    }
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return sql;</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.buildOrderBy = <span class="fstat-no" title="function not covered" >function (order, skip, limit) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (typeof order === 'string') {</span>
+<span class="cstat-no" title="statement not covered" >        order = [order];</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    order = order.map(<span class="fstat-no" title="function not covered" >function (item) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return wrapColumn(item);</span>
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var sql = 'ORDER BY ' + order.join(',');</span>
+<span class="cstat-no" title="statement not covered" >    sql += ' OFFSET ' + (skip || 0) + ' ROWS ';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (limit) {</span>
+<span class="cstat-no" title="statement not covered" >        sql += ' FETCH NEXT ' + limit + ' ROWS ONLY';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return sql</span>
+&nbsp;
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.buildWhere = <span class="fstat-no" title="function not covered" >function(conds, props, params) {</span></span>
+  // debugger;
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var cs = [];</span>
+<span class="cstat-no" title="statement not covered" >  Object.keys(conds).forEach(<span class="fstat-no" title="function not covered" >function (key) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var keyEscaped = self.escapeKey(key);</span>
+<span class="cstat-no" title="statement not covered" >    var val = self.toDatabase(props[key], conds[key], params);</span>
+<span class="cstat-no" title="statement not covered" >    if (conds[key] === null) {</span>
+<span class="cstat-no" title="statement not covered" >      cs.push(keyEscaped + ' IS NULL');</span>
+    } else <span class="cstat-no" title="statement not covered" >if (conds[key].constructor.name === 'Object') {</span>
+<span class="cstat-no" title="statement not covered" >      var condType = Object.keys(conds[key])[0];</span>
+<span class="cstat-no" title="statement not covered" >      var sqlCond = keyEscaped;</span>
+<span class="cstat-no" title="statement not covered" >      if ((condType == 'inq' || condType == 'nin') &amp;&amp; val.length == 0) {</span>
+<span class="cstat-no" title="statement not covered" >        cs.push(condType == 'inq' ? "0=1" : "0=0");</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (condType === "max") {</span>
+<span class="cstat-no" title="statement not covered" >        var tbl = conds[key].max.from;</span>
+<span class="cstat-no" title="statement not covered" >        var subClause = conds[key].max.where;</span>
+<span class="cstat-no" title="statement not covered" >        sqlCond += " = (SELECT MAX(" + val + ") FROM " + tbl;</span>
+<span class="cstat-no" title="statement not covered" >        if (subClause) {</span>
+<span class="cstat-no" title="statement not covered" >          sqlCond += " " + self.buildWhere(subClause, props);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        sqlCond += ")";</span>
+<span class="cstat-no" title="statement not covered" >        cs.push(sqlCond);</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      switch (condType) {</span>
+        case 'gt':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' &gt; ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'gte':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' &gt;= ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'lt':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' &lt; ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'lte':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' &lt;= ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'between':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' BETWEEN ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'inq':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' IN ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'nin':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' NOT IN ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'neq':
+<span class="cstat-no" title="statement not covered" >        sqlCond += ' != ';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      sqlCond += (condType == 'inq' || condType == 'nin') ? '(' + val + ')' : val;</span>
+<span class="cstat-no" title="statement not covered" >      cs.push(sqlCond);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      cs.push(keyEscaped + ' = ' + val);</span>
+    }
+  });
+<span class="cstat-no" title="statement not covered" >  if (cs.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >    return '';</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return 'WHERE ' + cs.join(' AND ');</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.autoupdate = <span class="fstat-no" title="function not covered" >function (cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >     var self = this;</span>
+<span class="cstat-no" title="statement not covered" >     var wait = 0;</span>
+<span class="cstat-no" title="statement not covered" >     Object.keys(this._models).forEach(<span class="fstat-no" title="function not covered" >function (model) {</span></span>
+<span class="cstat-no" title="statement not covered" >         wait += 1;</span>
+<span class="cstat-no" title="statement not covered" >         self.query('SHOW FIELDS FROM ' + self.tableEscaped(model), <span class="fstat-no" title="function not covered" >function (err, fields) {</span></span>
+<span class="cstat-no" title="statement not covered" >             self.query('SHOW INDEXES FROM ' + self.tableEscaped(model), <span class="fstat-no" title="function not covered" >function (err, indexes) {</span></span>
+<span class="cstat-no" title="statement not covered" >                 if (!err &amp;&amp; fields.length) {</span>
+<span class="cstat-no" title="statement not covered" >                     self.alterTable(model, fields, indexes, done);</span>
+                 } else {
+<span class="cstat-no" title="statement not covered" >                     self.createTable(model, done);</span>
+                 }
+             });
+         });
+     });
+&nbsp;
+<span class="fstat-no" title="function not covered" >     function done(err) {</span>
+<span class="cstat-no" title="statement not covered" >         if (err) {</span>
+<span class="cstat-no" title="statement not covered" >             console.log(err);</span>
+         }
+<span class="cstat-no" title="statement not covered" >         if (--wait === 0 &amp;&amp; cb) {</span>
+<span class="cstat-no" title="statement not covered" >             cb();</span>
+         }
+     }
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.isActual = <span class="fstat-no" title="function not covered" >function (cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >     var ok = false;</span>
+<span class="cstat-no" title="statement not covered" >     var self = this;</span>
+<span class="cstat-no" title="statement not covered" >     var wait = 0;</span>
+<span class="cstat-no" title="statement not covered" >     Object.keys(this._models).forEach(<span class="fstat-no" title="function not covered" >function (model) {</span></span>
+<span class="cstat-no" title="statement not covered" >         wait += 1;</span>
+<span class="cstat-no" title="statement not covered" >         self.query("SELECT * FROM INFORMATION_SCHEMA.Columns WHERE TABLE_NAME = '" + model + "';", <span class="fstat-no" title="function not covered" >function (err, fields) {</span></span>
+//             self.query('SHOW INDEXES FROM [' + model + '];', function (err, indexes) {
+<span class="cstat-no" title="statement not covered" >                 self.alterTable(model, fields, [], done, true);</span>
+//             });
+         });
+     });
+&nbsp;
+<span class="fstat-no" title="function not covered" >     function done(err, needAlter) {</span>
+<span class="cstat-no" title="statement not covered" >         if (err) {</span>
+<span class="cstat-no" title="statement not covered" >             console.log(err);</span>
+         }
+<span class="cstat-no" title="statement not covered" >         ok = ok || needAlter;</span>
+<span class="cstat-no" title="statement not covered" >         if (--wait === 0 &amp;&amp; cb) {</span>
+<span class="cstat-no" title="statement not covered" >             cb(null, !ok);</span>
+         }
+     }
+};
+&nbsp;
+&nbsp;
+//not working yet
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.alterTable = <span class="fstat-no" title="function not covered" >function (model, actualFields, actualIndexes, done, checkOnly) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var m = this._models[model];</span>
+<span class="cstat-no" title="statement not covered" >  var propNames = Object.keys(m.properties).filter(<span class="fstat-no" title="function not covered" >function (name) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return !!m.properties[name];</span>
+  });
+<span class="cstat-no" title="statement not covered" >  var indexNames = m.settings.indexes ? Object.keys(m.settings.indexes).filter(<span class="fstat-no" title="function not covered" >function (name) {</span></span>
+<span class="cstat-no" title="statement not covered" >      return !!m.settings.indexes[name];</span>
+  }) : [];
+<span class="cstat-no" title="statement not covered" >  var sql = [];</span>
+<span class="cstat-no" title="statement not covered" >  var ai = {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (actualIndexes) {</span>
+<span class="cstat-no" title="statement not covered" >      actualIndexes.forEach(<span class="fstat-no" title="function not covered" >function (i) {</span></span>
+<span class="cstat-no" title="statement not covered" >          var name = i.Key_name;</span>
+<span class="cstat-no" title="statement not covered" >          if (!ai[name]) {</span>
+<span class="cstat-no" title="statement not covered" >              ai[name] = {</span>
+                  info: i,
+                  columns: []
+              };
+          }
+<span class="cstat-no" title="statement not covered" >          ai[name].columns[i.Seq_in_index - 1] = i.Column_name;</span>
+      });
+  }
+<span class="cstat-no" title="statement not covered" >  var aiNames = Object.keys(ai);</span>
+&nbsp;
+  // change/add new fields
+<span class="cstat-no" title="statement not covered" >  propNames.forEach(<span class="fstat-no" title="function not covered" >function (propName) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (propName === 'id') <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      var found;</span>
+<span class="cstat-no" title="statement not covered" >      actualFields.forEach(<span class="fstat-no" title="function not covered" >function (f) {</span></span>
+<span class="cstat-no" title="statement not covered" >          if (f.Field === propName) {</span>
+<span class="cstat-no" title="statement not covered" >              found = f;</span>
+          }
+      });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (found) {</span>
+<span class="cstat-no" title="statement not covered" >          actualize(propName, found);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >          sql.push('ADD COLUMN `' + propName + '` ' + self.propertySettingsSQL(model, propName));</span>
+      }
+  });
+&nbsp;
+  // drop columns
+<span class="cstat-no" title="statement not covered" >  actualFields.forEach(<span class="fstat-no" title="function not covered" >function (f) {</span></span>
+<span class="cstat-no" title="statement not covered" >      var notFound = !~propNames.indexOf(f.Field);</span>
+<span class="cstat-no" title="statement not covered" >      if (f.Field === 'id') <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (notFound || !m.properties[f.Field]) {</span>
+<span class="cstat-no" title="statement not covered" >          sql.push('DROP COLUMN `' + f.Field + '`');</span>
+      }
+  });
+&nbsp;
+  // remove indexes
+<span class="cstat-no" title="statement not covered" >  aiNames.forEach(<span class="fstat-no" title="function not covered" >function (indexName) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (indexName === 'id' || indexName === 'PRIMARY') <span class="cstat-no" title="statement not covered" >return;</span></span>
+<span class="cstat-no" title="statement not covered" >      if (indexNames.indexOf(indexName) === -1 &amp;&amp; !m.properties[indexName] || m.properties[indexName] &amp;&amp; !m.properties[indexName].index) {</span>
+<span class="cstat-no" title="statement not covered" >          sql.push('DROP INDEX `' + indexName + '`');</span>
+      } else {
+          // first: check single (only type and kind)
+<span class="cstat-no" title="statement not covered" >          if (m.properties[indexName] &amp;&amp; !m.properties[indexName].index) {</span>
+              // TODO
+<span class="cstat-no" title="statement not covered" >              return;</span>
+          }
+          // second: check multiple indexes
+<span class="cstat-no" title="statement not covered" >          var orderMatched = true;</span>
+<span class="cstat-no" title="statement not covered" >          if (indexNames.indexOf(indexName) !== -1) {</span>
+<span class="cstat-no" title="statement not covered" >              m.settings.indexes[indexName].columns.split(/,\s*/).forEach(<span class="fstat-no" title="function not covered" >function (columnName, i) {</span></span>
+<span class="cstat-no" title="statement not covered" >                  if (ai[indexName].columns[i] !== columnName) <span class="cstat-no" title="statement not covered" >orderMatched = false;</span></span>
+              });
+          }
+<span class="cstat-no" title="statement not covered" >          if (!orderMatched) {</span>
+<span class="cstat-no" title="statement not covered" >              sql.push('DROP INDEX `' + indexName + '`');</span>
+<span class="cstat-no" title="statement not covered" >              delete ai[indexName];</span>
+          }
+      }
+  });
+&nbsp;
+  // add single-column indexes
+<span class="cstat-no" title="statement not covered" >  propNames.forEach(<span class="fstat-no" title="function not covered" >function (propName) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var i = m.properties[propName].index;</span>
+<span class="cstat-no" title="statement not covered" >    if (!i) {</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    var found = ai[propName] &amp;&amp; ai[propName].info;</span>
+<span class="cstat-no" title="statement not covered" >    if (!found) {</span>
+<span class="cstat-no" title="statement not covered" >      var type = '';</span>
+<span class="cstat-no" title="statement not covered" >      var kind = '';</span>
+<span class="cstat-no" title="statement not covered" >      if (i.type) {</span>
+<span class="cstat-no" title="statement not covered" >        type = 'USING ' + i.type;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (i.kind) {</span>
+        // kind = i.kind;
+      }
+<span class="cstat-no" title="statement not covered" >      if (kind &amp;&amp; type) {</span>
+<span class="cstat-no" title="statement not covered" >        sql.push('ADD ' + kind + ' INDEX `' + propName + '` (`' + propName + '`) ' + type);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        sql.push('ADD ' + kind + ' INDEX `' + propName + '` ' + type + ' (`' + propName + '`) ');</span>
+      }
+    }
+  });
+&nbsp;
+  // add multi-column indexes
+<span class="cstat-no" title="statement not covered" >  indexNames.forEach(<span class="fstat-no" title="function not covered" >function (indexName) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var i = m.settings.indexes[indexName];</span>
+<span class="cstat-no" title="statement not covered" >    var found = ai[indexName] &amp;&amp; ai[indexName].info;</span>
+<span class="cstat-no" title="statement not covered" >    if (!found) {</span>
+<span class="cstat-no" title="statement not covered" >      var type = '';</span>
+<span class="cstat-no" title="statement not covered" >      var kind = '';</span>
+<span class="cstat-no" title="statement not covered" >      if (i.type) {</span>
+<span class="cstat-no" title="statement not covered" >        type = 'USING ' + i.type;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (i.kind) {</span>
+<span class="cstat-no" title="statement not covered" >        kind = i.kind;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (kind &amp;&amp; type) {</span>
+<span class="cstat-no" title="statement not covered" >        sql.push('ADD ' + kind + ' INDEX `' + indexName + '` (' + i.columns + ') ' + type);</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        sql.push('ADD ' + kind + ' INDEX ' + type + ' `' + indexName + '` (' + i.columns + ')');</span>
+      }
+    }
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (sql.length) {</span>
+<span class="cstat-no" title="statement not covered" >    var query = 'ALTER TABLE ' + self.tableEscaped(model) + ' ' + sql.join(',' + MsSQL.newline);</span>
+<span class="cstat-no" title="statement not covered" >    if (checkOnly) {</span>
+<span class="cstat-no" title="statement not covered" >      done(null, true, {statements: sql, query: query});</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.query(query, done);</span>
+    }
+  } else {
+<span class="cstat-no" title="statement not covered" >    done();</span>
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function actualize(propName, oldSettings) {</span>
+<span class="cstat-no" title="statement not covered" >    var newSettings = m.properties[propName];</span>
+<span class="cstat-no" title="statement not covered" >    if (newSettings &amp;&amp; changed(newSettings, oldSettings)) {</span>
+<span class="cstat-no" title="statement not covered" >      sql.push('CHANGE COLUMN `' + propName + '` `' + propName + '` ' + self.propertySettingsSQL(model, propName));</span>
+    }
+  }
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function changed(newSettings, oldSettings) {</span>
+<span class="cstat-no" title="statement not covered" >    if (oldSettings.Null === 'YES' &amp;&amp; (newSettings.allowNull === false || newSettings.null === false)) <span class="cstat-no" title="statement not covered" >return true;</span></span>
+<span class="cstat-no" title="statement not covered" >    if (oldSettings.Null === 'NO' &amp;&amp; !(newSettings.allowNull === false || newSettings.null === false)) <span class="cstat-no" title="statement not covered" >return true;</span></span>
+<span class="cstat-no" title="statement not covered" >    if (oldSettings.Type.toUpperCase() !== datatype(newSettings)) <span class="cstat-no" title="statement not covered" >return true;</span></span>
+<span class="cstat-no" title="statement not covered" >    return false;</span>
+  }
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.propertiesSQL = <span class="fstat-no" title="function not covered" >function (model) {</span></span>
+  // debugger;
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var objModel = this._models[model];</span>
+<span class="cstat-no" title="statement not covered" >  var modelPKID = this._pkids[model];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var sql = ["[" + modelPKID + "] [int] IDENTITY(1,1) NOT NULL"];</span>
+<span class="cstat-no" title="statement not covered" >  Object.keys(this._models[model].properties).forEach(<span class="fstat-no" title="function not covered" >function (prop) {</span></span>
+<span class="cstat-no" title="statement not covered" >    if (prop === modelPKID) {</span>
+<span class="cstat-no" title="statement not covered" >     return;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    sql.push("[" + prop + "] " + self.propertySettingsSQL(model, prop));</span>
+  });
+<span class="cstat-no" title="statement not covered" >  var joinedSql = sql.join("," + MsSQL.newline + "    ");</span>
+<span class="cstat-no" title="statement not covered" >  var cmd = "PRIMARY KEY CLUSTERED" + MsSQL.newline + "(" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  cmd += "    [" + modelPKID + "] ASC" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  cmd += ")";</span>
+<span class="cstat-no" title="statement not covered" >  if (!this.azure) {</span>
+<span class="cstat-no" title="statement not covered" >    cmd += " WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]";</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  joinedSql += "," + MsSQL.newline + cmd;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return joinedSql;</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.singleIndexSettingsSQL = <span class="fstat-no" title="function not covered" >function (model, prop, add) {</span></span>
+  // Recycled from alterTable single indexes above, more or less.
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var i = this._models[model].properties[prop].index;</span>
+<span class="cstat-no" title="statement not covered" >  var type = 'ASC';</span>
+<span class="cstat-no" title="statement not covered" >  var kind = 'NONCLUSTERED';</span>
+<span class="cstat-no" title="statement not covered" >  var unique = false;</span>
+<span class="cstat-no" title="statement not covered" >  if (i.type) {</span>
+<span class="cstat-no" title="statement not covered" >    type = i.type;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (i.kind) {</span>
+<span class="cstat-no" title="statement not covered" >    kind = i.kind;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (i.unique) {</span>
+<span class="cstat-no" title="statement not covered" >    unique = true;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  var name = prop + "_" + kind + "_" + type + "_idx"</span>
+<span class="cstat-no" title="statement not covered" >  if (i.name) {</span>
+<span class="cstat-no" title="statement not covered" >    name = i.name;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  this._idxNames[model].push[name];</span>
+<span class="cstat-no" title="statement not covered" >  var cmd = "CREATE " + (unique ? "UNIQUE " : "") + kind + " INDEX [" + name + "] ON [dbo].[" + tblName + "]" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >      cmd += "(" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >      cmd += "    [" + prop + "] " + type + MsSQL.newline + ")";</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.azure) {</span>
+<span class="cstat-no" title="statement not covered" >        cmd += " WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]";</span>
+      }
+<span class="cstat-no" title="statement not covered" >      cmd += ";" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  return cmd;</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.indexSettingsSQL = <span class="fstat-no" title="function not covered" >function (model, prop) {</span></span>
+  // Recycled from alterTable multi-column indexes above, more or less.
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var i = this._models[model].settings.indexes[prop];</span>
+<span class="cstat-no" title="statement not covered" >  var type = 'ASC';</span>
+<span class="cstat-no" title="statement not covered" >  var kind = 'NONCLUSTERED';</span>
+<span class="cstat-no" title="statement not covered" >  var unique = false;</span>
+<span class="cstat-no" title="statement not covered" >  if (i.type) {</span>
+<span class="cstat-no" title="statement not covered" >    type = i.type;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (i.kind) {</span>
+<span class="cstat-no" title="statement not covered" >    kind = i.kind;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  if (i.unique) {</span>
+<span class="cstat-no" title="statement not covered" >    unique = true;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  var splitcolumns = i.columns.split(",");</span>
+<span class="cstat-no" title="statement not covered" >  var columns = [];</span>
+<span class="cstat-no" title="statement not covered" >  var name = "";</span>
+<span class="cstat-no" title="statement not covered" >  splitcolumns.forEach(<span class="fstat-no" title="function not covered" >function(elem, ind) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var trimmed = elem.trim();</span>
+<span class="cstat-no" title="statement not covered" >    name += trimmed + "_";</span>
+<span class="cstat-no" title="statement not covered" >    trimmed = "[" + trimmed + "] " + type;</span>
+<span class="cstat-no" title="statement not covered" >    columns.push(trimmed);</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  name += kind + "_" + type + "_idx"</span>
+<span class="cstat-no" title="statement not covered" >  this._idxNames[model].push[name];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var cmd = "CREATE " + (unique ? "UNIQUE " : "") + kind + " INDEX [" + name + "] ON [dbo].[" + tblName + "]" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >      cmd += "(" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >      cmd += columns.join("," + MsSQL.newline);</span>
+<span class="cstat-no" title="statement not covered" >      if (!this.azure) {</span>
+<span class="cstat-no" title="statement not covered" >        cmd += MsSQL.newline + ") WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]";</span>
+      }
+<span class="cstat-no" title="statement not covered" >      cmd += ";" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  return cmd;</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.propertySettingsSQL = <span class="fstat-no" title="function not covered" >function (model, prop) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var p = this._models[model].properties[prop];</span>
+<span class="cstat-no" title="statement not covered" >  return datatype(p) + ' ' +</span>
+  (p.allowNull === false || p['null'] === false ? 'NOT NULL' : 'NULL');
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.automigrate = <span class="fstat-no" title="function not covered" >function (cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var wait = 0;</span>
+<span class="cstat-no" title="statement not covered" >  Object.keys(this._models).forEach(<span class="fstat-no" title="function not covered" >function (model) {</span></span>
+<span class="cstat-no" title="statement not covered" >    wait += 1;</span>
+<span class="cstat-no" title="statement not covered" >    self.dropTable(model, <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+      // console.log('drop', model);
+<span class="cstat-no" title="statement not covered" >      if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
+<span class="cstat-no" title="statement not covered" >      self.createTable(model, <span class="fstat-no" title="function not covered" >function (err) {</span></span>
+        // console.log('create', model);
+<span class="cstat-no" title="statement not covered" >        if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      });
+    });
+  });
+<span class="cstat-no" title="statement not covered" >  if (wait === 0) <span class="cstat-no" title="statement not covered" >cb();</span></span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >  function done() {</span>
+<span class="cstat-no" title="statement not covered" >    if (--wait === 0 &amp;&amp; cb) {</span>
+<span class="cstat-no" title="statement not covered" >        cb();</span>
+    }
+  }
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.dropTable = <span class="fstat-no" title="function not covered" >function (model, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var cmd ="IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[" + tblName + "]') AND type in (N'U'))";</span>
+<span class="cstat-no" title="statement not covered" >  cmd += MsSQL.newline + "BEGIN" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  cmd += "    DROP TABLE [dbo].[" + tblName + "]";</span>
+<span class="cstat-no" title="statement not covered" >  cmd += MsSQL.newline + "END";</span>
+  //console.log(cmd);
+<span class="cstat-no" title="statement not covered" >  this.command(cmd, cb);</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.createTable = <span class="fstat-no" title="function not covered" >function (model, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var tblName = this.tableEscaped(model);</span>
+<span class="cstat-no" title="statement not covered" >  var cmd = "SET ANSI_NULLS ON;" + MsSQL.newline + "SET QUOTED_IDENTIFIER ON;" + MsSQL.newline + "SET ANSI_PADDING ON;" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  cmd += "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[" + tblName + "]') AND type in (N'U'))" + MsSQL.newline + "BEGIN" + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  cmd += "CREATE TABLE [dbo].[" + this.tableEscaped(model) + "] (";</span>
+<span class="cstat-no" title="statement not covered" >  cmd += MsSQL.newline + "    " + this.propertiesSQL(model) + MsSQL.newline;</span>
+<span class="cstat-no" title="statement not covered" >  cmd += ")";</span>
+<span class="cstat-no" title="statement not covered" >  if (!this.azure) {</span>
+<span class="cstat-no" title="statement not covered" >    cmd += " ON [PRIMARY]";</span>
+  }
+<span class="cstat-no" title="statement not covered" >  cmd += MsSQL.newline + "END;" + MsSQL.newline;</span>
+  //console.log(cmd);
+<span class="cstat-no" title="statement not covered" >  cmd += this.createIndexes(model);</span>
+<span class="cstat-no" title="statement not covered" >  this.command(cmd, cb);</span>
+};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >MsSQL.prototype.createIndexes = <span class="fstat-no" title="function not covered" >function(model) {</span></span>
+<span class="cstat-no" title="statement not covered" >  var self = this;</span>
+<span class="cstat-no" title="statement not covered" >  var sql = [];</span>
+  // Declared in model index property indexes.
+<span class="cstat-no" title="statement not covered" >  Object.keys(this._models[model].properties).forEach(<span class="fstat-no" title="function not covered" >function (prop) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var i = self._models[model].properties[prop].index;</span>
+<span class="cstat-no" title="statement not covered" >    if (i) {</span>
+<span class="cstat-no" title="statement not covered" >      sql.push(self.singleIndexSettingsSQL(model, prop));</span>
+    }
+  });
+&nbsp;
+  // Settings might not have an indexes property.
+<span class="cstat-no" title="statement not covered" >  var dxs = this._models[model].settings.indexes;</span>
+<span class="cstat-no" title="statement not covered" >  if(dxs) {</span>
+<span class="cstat-no" title="statement not covered" >    Object.keys(this._models[model].settings.indexes).forEach(<span class="fstat-no" title="function not covered" >function(prop){</span></span>
+<span class="cstat-no" title="statement not covered" >      sql.push(self.indexSettingsSQL(model, prop));</span>
+    });
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return sql.join(MsSQL.newline);</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function datatype(p) {</span>
+<span class="cstat-no" title="statement not covered" >    var dt = '';</span>
+<span class="cstat-no" title="statement not covered" >    switch (p.type.name) {</span>
+        default:
+        case 'String':
+        case 'JSON':
+<span class="cstat-no" title="statement not covered" >        dt = '[varchar](' + (p.limit || 255) + ')';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'Text':
+<span class="cstat-no" title="statement not covered" >        dt = '[text]';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'Number':
+<span class="cstat-no" title="statement not covered" >        dt = '[int]';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'Date':
+<span class="cstat-no" title="statement not covered" >        dt = '[datetime]';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'Boolean':
+<span class="cstat-no" title="statement not covered" >        dt = '[bit]';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+        case 'Point':
+<span class="cstat-no" title="statement not covered" >        dt = '[float]';</span>
+<span class="cstat-no" title="statement not covered" >        break;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    return dt;</span>
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Aug 25 2015 13:14:47 GMT+1000 (E. Australia Standard Time)</div>
+</div>
+
+<script src="../prettify.js"></script>
+
+<script src="https://yui-s.yahooapis.com/3.6.0/build/yui/yui-min.js"></script>
+<script>
+
+    YUI().use('datatable', function (Y) {
+
+        var formatters = {
+          pct: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              try {
+                  return o.value.toFixed(2) + '%';
+              } catch (ex) { return o.value + '%'; }
+          },
+          html: function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.record.get(o.column.key + '_html');
+          }
+        },
+          defaultFormatter = function (o) {
+              o.className += o.record.get('classes')[o.column.key];
+              return o.value;
+          };
+
+        function getColumns(theadNode) {
+            var colNodes = theadNode.all('tr th'),
+                cols = [],
+                col;
+            colNodes.each(function (colNode) {
+                col = {
+                    key: colNode.getAttribute('data-col'),
+                    label: colNode.get('innerHTML') || ' ',
+                    sortable: !colNode.getAttribute('data-nosort'),
+                    className: colNode.getAttribute('class'),
+                    type: colNode.getAttribute('data-type'),
+                    allowHTML: colNode.getAttribute('data-html') === 'true' || colNode.getAttribute('data-fmt') === 'html'
+                };
+                col.formatter = formatters[colNode.getAttribute('data-fmt')] || defaultFormatter;
+                cols.push(col);
+            });
+            return cols;
+        }
+
+        function getRowData(trNode, cols) {
+            var tdNodes = trNode.all('td'),
+                    i,
+                    row = { classes: {} },
+                    node,
+                    name;
+            for (i = 0; i < cols.length; i += 1) {
+                name = cols[i].key;
+                node = tdNodes.item(i);
+                row[name] = node.getAttribute('data-value') || node.get('innerHTML');
+                row[name + '_html'] = node.get('innerHTML');
+                row.classes[name] = node.getAttribute('class');
+                //Y.log('Name: ' + name + '; Value: ' + row[name]);
+                if (cols[i].type === 'number') { row[name] = row[name] * 1; }
+            }
+            //Y.log(row);
+            return row;
+        }
+
+        function getData(tbodyNode, cols) {
+            var data = [];
+            tbodyNode.all('tr').each(function (trNode) {
+                data.push(getRowData(trNode, cols));
+            });
+            return data;
+        }
+
+        function replaceTable(node) {
+            if (!node) { return; }
+            var cols = getColumns(node.one('thead')),
+                data = getData(node.one('tbody'), cols),
+                table,
+                parent = node.get('parentNode');
+
+            table = new Y.DataTable({
+                columns: cols,
+                data: data,
+                sortBy: 'file'
+            });
+            parent.set('innerHTML', '');
+            table.render(parent);
+        }
+
+        Y.on('domready', function () {
+            replaceTable(Y.one('div.coverage-summary table'));
+            if (typeof prettyPrint === 'function') {
+                prettyPrint();
+            }
+        });
+    });
+</script>
+</body>
+</html>

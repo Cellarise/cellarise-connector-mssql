@@ -1,0 +1,3 @@
+{
+"C:\\Atlassian\\NPM\\cellarise-connector-mssql\\lib\\mssql.js":{"lines":{"total":579,"covered":11,"skipped":0,"pct":1.9},"statements":{"total":602,"covered":11,"skipped":0,"pct":1.83},"functions":{"total":86,"covered":0,"skipped":0,"pct":0},"branches":{"total":357,"covered":0,"skipped":0,"pct":0}},
+"C:\\Atlassian\\NPM\\cellarise-connector-mssql\\lib\\params.js":{"lines":{"total":14,"covered":4,"skipped":0,"pct":28.57},"statements":{"total":14,"covered":4,"skipped":0,"pct":28.57},"functions":{"total":3,"covered":0,"skipped":0,"pct":0},"branches":{"total":8,"covered":0,"skipped":0,"pct":0}}}

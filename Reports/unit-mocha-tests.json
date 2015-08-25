@@ -1,0 +1,40 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 6,
+    "passes": 0,
+    "pending": 6,
+    "failures": 0,
+    "start": "2015-08-25T03:14:47.703Z",
+    "end": "2015-08-25T03:14:47.707Z",
+    "duration": 4
+  },
+  "failures": [],
+  "passes": [],
+  "skipped": [
+    {
+      "title": "Given",
+      "fullTitle": "Include: Add SQL LEFT OUTER JOIN option for includes  Given"
+    },
+    {
+      "title": "When",
+      "fullTitle": "Include: Add SQL LEFT OUTER JOIN option for includes  When"
+    },
+    {
+      "title": "Then",
+      "fullTitle": "Include: Add SQL LEFT OUTER JOIN option for includes  Then"
+    },
+    {
+      "title": "Given",
+      "fullTitle": "Package: Add mssql connector for loopback-datasource-juggler  Given"
+    },
+    {
+      "title": "When",
+      "fullTitle": "Package: Add mssql connector for loopback-datasource-juggler  When"
+    },
+    {
+      "title": "Then",
+      "fullTitle": "Package: Add mssql connector for loopback-datasource-juggler  Then"
+    }
+  ]
+}

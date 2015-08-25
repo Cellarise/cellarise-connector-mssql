@@ -1,13 +1,25 @@
-jugglingdb-mssql
-================
+# cellarise-connector-mssql
+[![view on npm](http://img.shields.io/npm/v/cellarise-connector-mssql.svg?style=flat)](https://www.npmjs.org/package/cellarise-connector-mssql)
+[![npm module downloads per month](http://img.shields.io/npm/dm/cellarise-connector-mssql.svg?style=flat)](https://www.npmjs.org/package/cellarise-connector-mssql)
+[![Dependency status](https://david-dm.org/Cellarise/cellarise-connector-mssql.svg?style=flat)](https://david-dm.org/Cellarise/cellarise-connector-mssql)
+[![Build Status](https://travis-ci.org/Cellarise/cellarise-connector-mssql.svg?branch=master)](https://travis-ci.org/Cellarise/cellarise-connector-mssql)
+[![Code
+Climate](https://codeclimate.com/github/Cellarise/cellarise-connector-mssql/badges/gpa.svg)](https://codeclimate.com/github/Cellarise/cellarise-connector-mssql)
+[![Test Coverage](https://codeclimate.com/github/Cellarise/cellarise-connector-mssql/badges/coverage.svg)](https://codeclimate.com/github/Cellarise/cellarise-connector-mssql/badges/coverage.svg)
 
-Cross platform MsSQL adapter for the jugglingdb ORM. Compatible with Azure SQL Server.
+> MsSQL adapter for Loopback
 
-Now passing all tests exposed by the jugglingdb framework!
 
-Usage
----
-To use it you need `jugglingdb >= 0.2.x`. This package uses the [mssql](//github.com/patriksimek/node-mssql) package which in turn uses [tedious](//github.com/pekim/tedious) out of the box. Support is also provided for the native Windows MSSQL driver as well as node-tds. See the mssql documentation page for more information.
+##Installation
+
+Install `cellarise-connector-mssql`:
+```
+npm install -g cellarise-connector-mssql
+```
+
+
+##Usage
+
 
 1. Setup dependencies in package.json:
   <pre>
@@ -15,8 +27,8 @@ To use it you need `jugglingdb >= 0.2.x`. This package uses the [mssql](//github
     {
       ...
       "dependencies":{
-        "jugglingdb": "~0.2.0",
-        "jugglingdb-mssql":"latest"
+		    "loopback": "^2.18.0",
+		    "loopback-datasource-juggler": "^2.29.2",
       }
       ...
     }
@@ -68,22 +80,65 @@ To use it you need `jugglingdb >= 0.2.x`. This package uses the [mssql](//github
     </code>
   </pre>
 
-MIT License
----
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+
+## API
+*documented by [jsdoc-to-markdown](https://github.com/75lb/jsdoc-to-markdown)*.
+
+
+# Changelog
+
+<table style="width:100%;border-spacing:0px;border-collapse:collapse;margin:0px;padding:0px;border-width:0px;">
+  <tr>
+    <th style="width:20px;text-align:center;"></th>
+    <th style="width:80px;text-align:center;">Type</th>
+    <th style="width:80px;text-align:left;">ID</th>
+    <th style="text-align:left;">Summary</th>
+  </tr>
+
+<tr>
+        <td colspan=4><strong>Version: 0.1.0 - released 2015-08-25</strong></td>
+      </tr>
+
+<tr>
+            <td style="width:20px;padding:0;margin:0;text-align:center;"><img src="https://jira.cellarise.com:80/secure/viewavatar?size=xsmall&amp;avatarId=10419&amp;avatarType=issuetype"/></td>
+            <td style="width:80px;text-align:left;">Non-functional</td>
+            <td style="width:80px;text-align:left;">MDCNSQL-5</td>
+            <td><p>Package: Update development dependencies</p><p></p></td>
+          </tr>
+
+<tr>
+            <td style="width:20px;padding:0;margin:0;text-align:center;"><img src="https://jira.cellarise.com:80/secure/viewavatar?size=xsmall&amp;avatarId=10412&amp;avatarType=issuetype"/></td>
+            <td style="width:80px;text-align:left;">Minor</td>
+            <td style="width:80px;text-align:left;">MDCNSQL-4</td>
+            <td><p>Package: update based on changes to loopback-connector</p><p></p></td>
+          </tr>
+
+<tr>
+            <td style="width:20px;padding:0;margin:0;text-align:center;"><img src="https://jira.cellarise.com:80/secure/viewavatar?size=xsmall&amp;avatarId=10411&amp;avatarType=issuetype"/></td>
+            <td style="width:80px;text-align:left;">Feature</td>
+            <td style="width:80px;text-align:left;">MDCNSQL-3</td>
+            <td><p>Include: Add SQL LEFT OUTER JOIN option for includes</p><p></p></td>
+          </tr>
+
+<tr>
+            <td style="width:20px;padding:0;margin:0;text-align:center;"><img src="https://jira.cellarise.com:80/secure/viewavatar?size=xsmall&amp;avatarId=10411&amp;avatarType=issuetype"/></td>
+            <td style="width:80px;text-align:left;">Feature</td>
+            <td style="width:80px;text-align:left;">MDCNSQL-2</td>
+            <td><p>Package: Add mssql connector for loopback-datasource-juggler</p><p></p></td>
+          </tr>
+
+
+</table>
+
+
+
+# License
+
+MIT. All rights not explicitly granted in the license are reserved.
+
+Copyright (c) 2015 Cellarise
+## Dependencies
+[cellarise-connector-mssql@0.2.4](&quot;https://github.com/Cellarise/cellarise-connector-mssql&quot;) - &quot;MIT&quot;,
+*documented by [npm-licenses](http://github.com/AceMetrix/npm-license.git)*.
